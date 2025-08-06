@@ -6,31 +6,29 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the data
-df = pd.read_csv('/Users/johnny/Downloads/lung cancer.csv')
-
-# Encode categorical columns
-# Convert 'gender' to 0/1
-df['gender'] = df['gender'].map({'Male': 0, 'Female': 1})
-
-# Convert 'treatment_type' to numbers
-df['treatment_type'] = df['treatment_type'].astype('category').cat.codes
+df = pd.read_csv('/Users/johnny/Desktop/Projects/Lung Cancer Project/lung cancer.csv')
 
 # Select features and target variable
+features = ['gender', 'cancer_stage', 'family_history', 'smoking_status', 'treatment_type']
+# Encode categorical columns to numeric
+for col in features:
+    df[col] = df[col].astype('category').cat.codes
+features.extend(['age', 'bmi', 'cholesterol_level', 'hypertension', 'asthma', 'cirrhosis', 'other_cancer'])
 # Keep only numeric columns
-X = df.select_dtypes(include='number').drop(columns=['survived', 'id'], errors='ignore')
+X = df[features]
 y = df['survived']
 
 # Split into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
 # Train a Random Forest model
-model = RandomForestClassifier(n_estimators=10, random_state=0)
+model = RandomForestClassifier(random_state=1)
 model.fit(X_train, y_train)
 
 # Predict and evaluate
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
-print(f'Accuracy: {accuracy:.2f}')
+print(f'Accuracy: {accuracy:.4f}')
 
 # Calculate feature importances
 feature_importances = pd.Series(model.feature_importances_, index=X.columns)
@@ -42,6 +40,7 @@ for feature, importance in top10.items():
     print(f"- {feature} (importance score: {importance:.3f})")
 
 # Plot
+plt.gcf().set_size_inches(10, 6)
 top10.plot(kind='barh')
 plt.title('Top 10 Feature Importances')
 plt.xlabel('Importance Score')
