@@ -1,38 +1,36 @@
 # 🫁 Lung Cancer Data Analysis
 
 ## 📌 Overview
-This project provides an **easy-to-follow, end-to-end exploratory data analysis (EDA)** of lung cancer patient data using a real-world dataset from Kaggle.  
-The analysis includes:
-- Patient demographics  
-- Clinical features  
-- Treatment outcomes  
-- Diagnosis trends  
-
-Results are visualized with clear plots and summary tables to help **researchers, students, and healthcare professionals** better understand key patterns in lung cancer epidemiology.
+This project provides an **end-to-end EDA + predictive modeling** workflow for lung cancer patient data from Kaggle.  
+Beyond demographics and clinical feature exploration, it trains an **XGBoost classifier** to predict survival and visualizes the **top 10 most important features**.
 
 ---
 
 ## 📊 Dataset
-**Source:** [Lung Cancer Dataset by Khwaish Saxena](https://www.kaggle.com/datasets/khwaishsaxena/lung-cancer-dataset)  
+Source: [Lung Cancer Dataset by Khwaish Saxena](https://www.kaggle.com/datasets/khwaishsaxena/lung-cancer-dataset)
 
 **To get started:**
-1. Download the dataset (`lung cancer.csv`) from the Kaggle link above.
-2. Place the file in your project folder or update the file path in the notebook/code if stored elsewhere.
+1. Download `lung cancer.csv` from Kaggle.
+2. Place it in your project folder or update the file path in the script/notebook.
 
 ---
 
 ## ⚙️ Requirements
-- **Python version:** 3.7 or higher (Recommended: 3.8 / 3.9 / 3.10+)  
-- **Key Python libraries:**
+- **Python:** 3.7+ (recommended: 3.8/3.9/3.10+)
+- **Libraries:**
   - `pandas`
   - `numpy`
   - `matplotlib`
   - `seaborn`
-  - *(Optional for extended analysis)*: `scikit-learn`, `ydata_profiling`
+  - **`xgboost`** (modeling)
+
+*Optional utilities (for split/metrics/profiling):*  
+`scikit-learn`, `ydata_profiling`
 
 ---
 
 ## 📦 Installation
-To install all required libraries, run:
 ```bash
-pip install pandas numpy matplotlib seaborn scikit-learn ydata-profiling
+pip install pandas numpy matplotlib seaborn xgboost
+# Optional (if you use train_test_split / accuracy_score / profiling):
+pip install scikit-learn ydata-profiling
