@@ -1,9 +1,9 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import seaborn as sns
+from xgboost import XGBClassifier 
 
 # Load the data
 df = pd.read_csv('/Users/johnny/Desktop/Projects/Lung Cancer Project/lung cancer.csv')
@@ -21,8 +21,16 @@ y = df['survived']
 # Split into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
-# Train a Random Forest model
-model = RandomForestClassifier(random_state=1)
+# Train an XGBoost model 
+model = XGBClassifier(
+    n_estimators=300,
+    max_depth=4,
+    learning_rate=0.05,
+    subsample=0.9,
+    colsample_bytree=0.9,
+    random_state=1,
+    eval_metric='logloss'
+)
 model.fit(X_train, y_train)
 
 # Predict and evaluate
